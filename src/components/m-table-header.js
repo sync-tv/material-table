@@ -5,7 +5,6 @@ import {
   TableHead, TableRow, TableCell,
   TableSortLabel, Checkbox, withStyles
 } from '@material-ui/core';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
 /* eslint-enable no-unused-vars */
 
 export class MTableHeader extends React.Component {
@@ -13,43 +12,7 @@ export class MTableHeader extends React.Component {
     const mapArr = this.props.columns.filter(columnDef => !columnDef.hidden && !(columnDef.tableData.groupOrder > -1))
       .sort((a, b) => a.tableData.columnOrder - b.tableData.columnOrder)
       .map((columnDef, index) => {
-        let content = (
-          <Draggable
-            key={columnDef.tableData.id}
-            draggableId={columnDef.tableData.id.toString()}
-            index={index}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-              // style={this.getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-              >
-                {columnDef.title}
-              </div>
-            )}
-          </Draggable>
-        );
-
-        // if (this.props.grouping && columnDef.grouping !== false && columnDef.field) {
-        //   content = (
-        //     <Draggable
-        //       key={columnDef.tableData.id}
-        //       draggableId={columnDef.tableData.id.toString()}
-        //       index={index}>
-        //       {(provided, snapshot) => (
-        //         <div
-        //           ref={provided.innerRef}
-        //           {...provided.draggableProps}
-        //           {...provided.dragHandleProps}
-        //         // style={this.getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-        //         >
-        //           {columnDef.title}
-        //         </div>
-        //       )}
-        //     </Draggable>
-        //   );
-        // }
+        let content = columnDef.title;
 
         if (columnDef.sorting !== false && this.props.sorting) {
           content = (
@@ -114,11 +77,11 @@ export class MTableHeader extends React.Component {
 
   renderDetailPanelColumnCell() {
     return <TableCell
-            padding="none"
-            key="key-detail-panel-column"
-            className={this.props.classes.header}
-            style={{ ...this.props.headerStyle }}
-          />;
+      padding="none"
+      key="key-detail-panel-column"
+      className={this.props.classes.header}
+      style={{ ...this.props.headerStyle }}
+    />;
   }
 
   render() {
@@ -190,9 +153,11 @@ MTableHeader.defaultProps = {
 };
 
 MTableHeader.propTypes = {
+  classes: PropTypes.object,
   columns: PropTypes.array.isRequired,
   dataCount: PropTypes.number,
   hasDetailPanel: PropTypes.bool.isRequired,
+  isTreeData: PropTypes.bool,
   detailPanelColumnAlignment: PropTypes.string,
   hasSelection: PropTypes.bool,
   headerStyle: PropTypes.object,

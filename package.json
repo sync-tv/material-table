@@ -1,6 +1,6 @@
 {
   "name": "material-table",
-  "version": "1.39.2",
+  "version": "1.39.4",
   "description": "Datatable for React based on https://material-ui.com/api/table/ with additional features",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
@@ -17,7 +17,7 @@
     "lint": "npm run eslint && npm run tsc",
     "eslint": "eslint src/** -c ./configs/.eslintrc",
     "tsc": "tsc --noEmit --lib es6,dom --skipLibCheck types/index.d.ts",
-    "lint:fix": "eslint src/** --fix"
+    "lint:fix": "eslint src/** --fix -c ./configs/.eslintrc"
   },
   "husky": {
     "hooks": {

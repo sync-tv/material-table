@@ -406,37 +406,35 @@ export default class MaterialTable extends React.Component {
     if (props.options.paging) {
       const localization = { ...MaterialTable.defaultProps.localization.pagination, ...this.props.localization.pagination };
       return (
-        <Table>
-          <TableFooter style={{ display: 'grid' }}>
-            <TableRow>
-              <props.components.Pagination
-                classes={{
-                  root: props.classes.paginationRoot,
-                  toolbar: props.classes.paginationToolbar,
-                  caption: props.classes.paginationCaption,
-                  selectRoot: props.classes.paginationSelectRoot,
-                }}
-                style={{ float: props.theme.direction === "rtl" ? "" : "right", overflowX: 'auto' }}
-                colSpan={3}
-                count={this.isRemoteData() ? this.state.query.totalCount : this.state.data.length}
-                icons={props.icons}
-                rowsPerPage={this.state.pageSize}
-                rowsPerPageOptions={props.options.pageSizeOptions}
-                SelectProps={{
-                  renderValue: value => <div style={{ padding: '0px 5px' }}>{value + ' ' + localization.labelRowsSelect + ' '}</div>
-                }}
-                page={this.isRemoteData() ? this.state.query.page : this.state.currentPage}
-                onChangePage={this.onChangePage}
-                onChangeRowsPerPage={this.onChangeRowsPerPage}
-                ActionsComponent={(subProps) => props.options.paginationType === 'normal' ?
-                  <MTablePagination {...subProps} icons={props.icons} localization={localization} showFirstLastPageButtons={props.options.showFirstLastPageButtons}/> :
-                  <MTableSteppedPagination {...subProps} icons={props.icons} localization={localization} />}
-                labelDisplayedRows={(row) => localization.labelDisplayedRows.replace('{from}', row.from).replace('{to}', row.to).replace('{count}', row.count)}
-                labelRowsPerPage={localization.labelRowsPerPage}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
+        <TableFooter style={{ display: 'grid' }}>
+          <TableRow>
+            <props.components.Pagination
+              classes={{
+                root: props.classes.paginationRoot,
+                toolbar: props.classes.paginationToolbar,
+                caption: props.classes.paginationCaption,
+                selectRoot: props.classes.paginationSelectRoot,
+              }}
+              style={{ float: props.theme.direction === "rtl" ? "" : "right", overflowX: 'auto' }}
+              colSpan={3}
+              count={this.isRemoteData() ? this.state.query.totalCount : this.state.data.length}
+              icons={props.icons}
+              rowsPerPage={this.state.pageSize}
+              rowsPerPageOptions={props.options.pageSizeOptions}
+              SelectProps={{
+                renderValue: value => <div style={{ padding: '0px 5px' }}>{value + ' ' + localization.labelRowsSelect + ' '}</div>
+              }}
+              page={this.isRemoteData() ? this.state.query.page : this.state.currentPage}
+              onChangePage={this.onChangePage}
+              onChangeRowsPerPage={this.onChangeRowsPerPage}
+              ActionsComponent={(subProps) => props.options.paginationType === 'normal' ?
+                <MTablePagination {...subProps} icons={props.icons} localization={localization} showFirstLastPageButtons={props.options.showFirstLastPageButtons}/> :
+                <MTableSteppedPagination {...subProps} icons={props.icons} localization={localization} />}
+              labelDisplayedRows={(row) => localization.labelDisplayedRows.replace('{from}', row.from).replace('{to}', row.to).replace('{count}', row.count)}
+              labelRowsPerPage={localization.labelRowsPerPage}
+            />
+          </TableRow>
+        </TableFooter>
       );
     }
   }
@@ -543,6 +541,7 @@ export default class MaterialTable extends React.Component {
                         hasDetailPanel={!!props.detailPanel}
                         treeDataMaxLevel={this.state.treeDataMaxLevel}
                       />
+                      {this.renderFooter()}
                     </Table>
                   </div>
                   {provided.placeholder}
@@ -558,8 +557,6 @@ export default class MaterialTable extends React.Component {
               </div>
             </div>
           }
-          {this.renderFooter()}
-
           {(this.state.isLoading || props.isLoading) && props.options.loadingType === 'overlay' &&
             <div style={{ position: 'absolute', top: 0, left: 0, height: '100%', width: '100%', zIndex: 11 }}>
               <props.components.OverlayLoading theme={props.theme} />

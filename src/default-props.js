@@ -1,8 +1,44 @@
 import React from 'react';
-import { CircularProgress, Icon, Paper, TablePagination } from '@material-ui/core';
+import { CircularProgress, TablePagination } from '@material-ui/core';
 import * as MComponents from './components';
 import PropTypes from 'prop-types';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
+
+const tableIcons = {
+  Add: AddBox,
+  Check: Check,
+  Clear: Clear,
+  Delete: DeleteOutline,
+  DetailPanel: ChevronRight,
+  Edit: Edit,
+  Export: SaveAlt,
+  Filter: FilterList,
+  FirstPage: FirstPage,
+  LastPage: LastPage,
+  NextPage: ChevronRight,
+  PreviousPage: ChevronLeft,
+  ResetSearch: Clear,
+  Search: Search,
+  SortArrow: ArrowUpward,
+  ThirdStateCheck: Remove,
+  ViewColumn: ViewColumn
+};
 
 const OverlayLoading = props => (
   <div style={{ display: 'table', width: '100%', height: '100%', backgroundColor: fade(props.theme.palette.background.paper, 0.7) }}>
@@ -15,7 +51,7 @@ OverlayLoading.propTypes = {
   theme: PropTypes.any
 };
 
-const Container = (props) => <Paper elevation={2} {...props}/>;
+const Container = props => <div {...props}/>;
 
 export const defaultProps = {
   actions: [],
@@ -39,27 +75,7 @@ export const defaultProps = {
     Toolbar: MComponents.MTableToolbar
   },
   data: [],
-  icons: {
-    /* eslint-disable react/display-name */
-    Add: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>add_box</Icon>),
-    Check: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>check</Icon>),
-    Clear: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>clear</Icon>),
-    Delete: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>delete_outline</Icon>),
-    DetailPanel: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>chevron_right</Icon>),
-    Edit: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>edit</Icon>),
-    Export: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>save_alt</Icon>),
-    Filter: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>filter_list</Icon>),
-    FirstPage: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>first_page</Icon>),
-    LastPage: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>last_page</Icon>),
-    NextPage: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>chevron_right</Icon>),
-    PreviousPage: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>chevron_left</Icon>),
-    ResetSearch: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>clear</Icon>),
-    Search: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>search</Icon>),
-    SortArrow: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>arrow_upward</Icon>),
-    ThirdStateCheck: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>remove</Icon>),
-    ViewColumn: React.forwardRef((props, ref) => <Icon {...props} ref={ref}>view_column</Icon>)
-    /* eslint-enable react/display-name */
-  },
+  icons: tableIcons,
   isLoading: false,
   title: 'Table Title',
   options: {

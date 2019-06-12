@@ -405,8 +405,20 @@ export default class MaterialTable extends React.Component {
     const props = this.getProps();
     if (props.options.paging) {
       const localization = { ...MaterialTable.defaultProps.localization.pagination, ...this.props.localization.pagination };
+
+      let addColumn = 0;
+      if (this.props.options.selection || (this.props.actions && this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection).length > 0)) {
+        addColumn++;
+      }
+      if (this.props.hasDetailPanel) {
+        addColumn++;
+      }
+      if (this.props.isTreeData) {
+        addColumn++;
+      }
+      
       return (
-        <TableFooter style={{ display: 'grid' }}>
+        <TableFooter>
           <TableRow>
             <props.components.Pagination
               classes={{
@@ -415,8 +427,7 @@ export default class MaterialTable extends React.Component {
                 caption: props.classes.paginationCaption,
                 selectRoot: props.classes.paginationSelectRoot,
               }}
-              style={{ float: props.theme.direction === "rtl" ? "" : "right", overflowX: 'auto' }}
-              colSpan={3}
+              colSpan={this.props.columns.length + addColumn}
               count={this.isRemoteData() ? this.state.query.totalCount : this.state.data.length}
               icons={props.icons}
               rowsPerPage={this.state.pageSize}

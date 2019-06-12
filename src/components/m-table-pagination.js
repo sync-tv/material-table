@@ -78,7 +78,7 @@ class MTablePaginationInner extends React.Component {
             </span>
           </Tooltip>
         }
-      </div >
+      </div>
     );
   }
 }

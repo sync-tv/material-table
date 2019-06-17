@@ -1,34 +1,39 @@
 import * as React from 'react';
+
+import { TableProps } from "@material-ui/core/Table"
+
 import { IconProps } from '@material-ui/core/Icon';
+
 import { string } from 'prop-types';
 
-export interface MaterialTableProps {
+export interface MaterialTableProps<T = any> {
   actions?: (Action | ((rowData: any) => Action))[];
   columns: Column[];
   components?: Components;
-  data: any[] | ((query: Query) => Promise<QueryResult>);
-  detailPanel?: ((rowData: any) => React.ReactNode) | (DetailPanel | ((rowData: any) => DetailPanel))[];
+  data: T[] | ((query: Query) => Promise<QueryResult<T>>);
+  detailPanel?: ((rowData: T) => React.ReactNode) | (DetailPanel | ((rowData: T) => DetailPanel))[];
   editable?: {
-    isEditable?: (rowData: any) => boolean;
-    isDeletable?: (rowData: any) => boolean;
-    onRowAdd?: (newData: any) => Promise<void>;
-    onRowUpdate?: (newData: any, oldData?: any) => Promise<void>;
-    onRowDelete?: (oldData: any) => Promise<void>;
+    isEditable?: (rowData: T) => boolean;
+    isDeletable?: (rowData: T) => boolean;
+    onRowAdd?: (newData: T) => Promise<void>;
+    onRowUpdate?: (newData: T, oldData?: T) => Promise<void>;
+    onRowDelete?: (oldData: T) => Promise<void>;
   }
   icons?: Icons;
   isLoading?: boolean;
   title?: string | React.ReactElement<any>;
-  options?: Options;
-  parentChildData?: (row: any, rows: any[]) => any;
+  options?: Options<T>;
+  parentChildData?: (row: T, rows: T[]) => any;
   localization?: Localization;
   onChangeRowsPerPage?: (pageSize: number) => void;
   onChangePage?: (page: number) => void;
   onOrderChange?: (orderBy: number, orderDirection: ("asc" | "desc")) => void;
-  onRowClick?: (event?: React.MouseEvent, rowData?: any, toggleDetailPanel?: (panelIndex?: number) => void) => void;
-  onRowSelected?: (rowData: any) => void;
-  onSelectionChange?: (data: any[], rowData?: any) => void;
-  onTreeExpandChange?: (data: any, isExpanded: boolean) => void;
+  onRowClick?: (event?: React.MouseEvent, rowData?: T, toggleDetailPanel?: (panelIndex?: number) => void) => void;
+  onRowSelected?: (rowData: T) => void;
+  onSelectionChange?: (data: T[], rowData?: T) => void;
+  onTreeExpandChange?: (data: T, isExpanded: boolean) => void;
   style?: React.CSSProperties;
+  tableProps?: TableProps;
   tableRef?: any;
 }
 
@@ -47,8 +52,8 @@ export interface Query {
   orderDirection: "asc" | "desc";
 }
 
-export interface QueryResult {
-  data: any[];
+export interface QueryResult<T = any> {
+  data: T[];
   page: number;
   totalCount: number;
 }
@@ -61,20 +66,20 @@ export interface DetailPanel {
   render: (rowData: any) => string | React.ReactNode;
 }
 
-export interface Action {
+export interface Action<T = any> {
   disabled?: boolean;
   icon: string | (() => React.ReactElement<any>);
   isFreeAction?: boolean;
   tooltip?: string;
-  onClick: (event: any, data: any) => void;
+  onClick: (event: any, data: T) => void;
   iconProps?: IconProps;
   hidden?: boolean;
 }
 
-export interface EditComponentProps {
-  rowData: any;
+export interface EditComponentProps<T = any> {
+  rowData: T;
   value: any,
-  onChange: (newValue: any) => void,
+  onChange: (newValue: T) => void,
   columnDef: EditCellColumnDef,
 }
 
@@ -89,18 +94,18 @@ export interface EditCellColumnDef {
   }
 }
 
-export interface Column {
-  cellStyle?: React.CSSProperties | ((data: any, rowData: any) => React.CSSProperties);
+export interface Column<T = any> {
+  cellStyle?: React.CSSProperties | ((data: T, rowData: T) => React.CSSProperties);
   currencySetting?: { locale?: string, currencyCode?: string, minimumFractionDigits?: number, maximumFractionDigits?: number };
-  customFilterAndSearch?: (filter: any, rowData: any, columnDef: Column) => boolean;
-  customSort?: (data1: any, data2: any, type: (('row' | 'group'))) => number;
+  customFilterAndSearch?: (filter: any, rowData: T, columnDef: Column) => boolean;
+  customSort?: (data1: T, data2: T, type: (('row' | 'group'))) => number;
   defaultFilter?: any;
   defaultGroupOrder?: number;
   defaultGroupSort?: ('asc' | 'desc');
   defaultSort?: ('asc' | 'desc');
   disableClick?: boolean;
   editComponent?: ((props: EditComponentProps) => React.ReactElement<any>);
-  emptyValue?: string | React.ReactElement<any> | ((data: any) => React.ReactElement<any> | string);
+  emptyValue?: string | React.ReactElement<any> | ((data: T) => React.ReactElement<any> | string);
   export?: boolean;
   field?: string;
   filtering?: boolean;
@@ -111,11 +116,12 @@ export interface Column {
   lookup?: object;
   editable?: ('always' | 'onUpdate' | 'onAdd' | 'never');
   removable?: boolean;
-  render?: (data: any, type: ('row' | 'group')) => any;
+  render?: (data: T, type: ('row' | 'group')) => any;
   searchable?: boolean;
   sorting?: boolean;
   title?: string | React.ReactElement<any>;
   type?: ('string' | 'boolean' | 'numeric' | 'date' | 'datetime' | 'time' | 'currency');
+  align?: TableProps["align"];
 }
 
 export interface Components {
@@ -171,7 +177,7 @@ export interface Icons {
   ViewColumn?: () => React.ReactElement<any>;
 }
 
-export interface Options {
+export interface Options<T = any> {
   actionsCellStyle?: React.CSSProperties;
   actionsColumnIndex?: number;
   addRowPosition?: ('first' | 'last');
@@ -185,7 +191,7 @@ export interface Options {
   exportButton?: boolean;
   exportDelimiter?: string;
   exportFileName?: string;
-  exportCsv?: (columns: any[], renderData: any[]) => void;
+  exportCsv?: (columns: any[], renderData: T[]) => void;
   filtering?: boolean;
   filterCellStyle?: React.CSSProperties;
   header?: boolean;
@@ -198,7 +204,7 @@ export interface Options {
   pageSize?: number;
   pageSizeOptions?: number[];
   paginationType?: ('normal' | 'stepped');
-  rowStyle?: React.CSSProperties | ((data: any, index: number) => React.CSSProperties);
+  rowStyle?: React.CSSProperties | ((data: T, index: number) => React.CSSProperties);
   showEmptyDataSourceMessage?: boolean;
   showFirstLastPageButtons?: boolean;
   showSelectAllCheckbox?: boolean;
@@ -208,7 +214,7 @@ export interface Options {
   searchFieldAlignment?: 'left' | 'right';
   searchFieldStyle?: React.CSSProperties;
   selection?: boolean;
-  selectionProps?: any | ((data: any) => any);
+  selectionProps?: any | ((data: T) => any);
   sorting?: boolean;
   toolbar?: boolean;
   toolbarButtonAlignment?: 'left' | 'right';

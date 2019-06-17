@@ -50,7 +50,8 @@ export class MTableHeader extends React.Component {
         key="key-actions-column"
         padding="checkbox"
         className={this.props.classes.header}
-        style={{ ...this.props.headerStyle, textAlign: 'center' }}
+        align="center"
+        style={{ ...this.props.headerStyle }}
       >
         <TableSortLabel disabled>{localization.actions}</TableSortLabel>
       </TableCell>

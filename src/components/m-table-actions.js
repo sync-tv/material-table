@@ -7,14 +7,18 @@ class MTableActions extends React.Component {
 
   render() {
     if (this.props.actions) {
-      return this.props.actions.map((action, index) => <this.props.components.Action action={action} key={"action-" + index} data={this.props.data}/>);
+      return (
+        <div style={{ display: 'flex' }}>
+          {this.props.actions.map((action, index) => <this.props.components.Action action={action} key={"action-" + index} data={this.props.data} />)}
+        </div>
+      );
     }
 
     return null;
   }
 }
 
-MTableActions.defaultProps = {  
+MTableActions.defaultProps = {
   actions: [],
   data: {}
 };

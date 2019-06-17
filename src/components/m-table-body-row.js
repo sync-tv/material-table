@@ -27,10 +27,8 @@ export default class MTableBodyRow extends React.Component {
   renderActions() {
     const actions = this.props.actions.filter(a => !a.isFreeAction && !this.props.options.selection);
     return (
-      <TableCell padding="none" key="key-actions-column" style={{ width: 42 * actions.length, padding: '0px 5px', ...this.props.options.actionsCellStyle }}>
-        <div style={{ display: 'flex' }}>
-          <this.props.components.Actions data={this.props.data} actions={actions} components={this.props.components} />
-        </div>
+      <TableCell padding="none" key="key-actions-column" align="center" style={{ width: 42 * actions.length, padding: '0px 5px', ...this.props.options.actionsCellStyle }}>
+        <this.props.components.Actions data={this.props.data} actions={actions} components={this.props.components} />
       </TableCell>
     );
   }
@@ -263,7 +261,7 @@ export default class MTableBodyRow extends React.Component {
             if (data.tableData.editing) {
               return (
                 <this.props.components.EditRow
-                  columns={this.props.columns.filter(columnDef => { return !columnDef.hidden })}
+                  columns={this.props.columns.filter(columnDef => !columnDef.hidden)}
                   components={this.props.components}
                   data={data}
                   icons={this.props.icons}

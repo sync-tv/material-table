@@ -57,7 +57,7 @@ export default class MTableEditRow extends React.Component {
           return (
             <TableCell
               key={columnDef.tableData.id}
-              align={['numeric'].indexOf(columnDef.type) !== -1 ? "right" : "left"}
+              align={columnDef.align || ['numeric'].indexOf(columnDef.type) !== -1 ? "right" : "left"}
             >
               <EditComponent
                 key={columnDef.tableData.id}

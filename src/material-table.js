@@ -527,9 +527,7 @@ export default class MaterialTable extends React.Component {
               components={props.components}
               selectedRows={
                 this.state.selectedCount > 0
-                  ? this.state.originalData.filter(a => {
-                      return a.tableData.checked;
-                    })
+                  ? this.state.originalData.filter(a => a.tableData.checked)
                   : []
               }
               columns={this.state.columns}
@@ -576,7 +574,7 @@ export default class MaterialTable extends React.Component {
               onGroupRemoved={this.onGroupRemoved}
             />
           )}
-          <Table>
+          <Table {...props.tableProps}>
             {props.options.header && (
               <props.components.Header
                 localization={{

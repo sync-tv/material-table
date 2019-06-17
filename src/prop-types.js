@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import Table from "@material-ui/core/Table";
+import TableCell from "@material-ui/core/TableCell";
 
 const RefComponent = PropTypes.shape({ current: PropTypes.element });
 const StyledComponent = PropTypes.shape({
@@ -44,7 +46,8 @@ export const propTypes = {
     searchable: PropTypes.bool,
     sorting: PropTypes.bool,
     title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-    type: PropTypes.oneOf(['string', 'boolean', 'numeric', 'date', 'datetime', 'time', 'currency'])
+    type: PropTypes.oneOf(['string', 'boolean', 'numeric', 'date', 'datetime', 'time', 'currency']),
+    align: TableCell.propTypes.align
   })).isRequired,
   components: PropTypes.shape({
     Action: PropTypes.oneOfType([PropTypes.element, PropTypes.func, StyledComponent]),
@@ -162,5 +165,6 @@ export const propTypes = {
   onRowClick: PropTypes.func,
   onTreeExpandChange: PropTypes.func,
   tableRef: PropTypes.any,
-  style: PropTypes.object
+  tableProps: Table.propTypes,
+  style: PropTypes.object,
 };

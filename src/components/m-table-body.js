@@ -40,7 +40,7 @@ class MTableBody extends React.Component {
       if (data.tableData.editing) {
         return (
           <this.props.components.EditRow
-            columns={this.props.columns.filter(columnDef => { return !columnDef.hidden })}
+            columns={this.props.columns.filter(columnDef => !columnDef.hidden )}
             components={this.props.components}
             data={data}
             icons={this.props.icons}

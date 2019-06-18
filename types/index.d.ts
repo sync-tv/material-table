@@ -1,14 +1,15 @@
 import * as React from 'react';
 
 import { TableProps } from "@material-ui/core/Table"
+import { TableCellProps } from "@material-ui/core/TableCell";
 
 import { IconProps } from '@material-ui/core/Icon';
 
 import { string } from 'prop-types';
 
 export interface MaterialTableProps<T = any> {
-  actions?: (Action | ((rowData: any) => Action))[];
-  columns: Column[];
+  actions?: (Action<T> | ((rowData: T) => Action<T>))[];
+  columns: Column<T>[];
   components?: Components;
   data: T[] | ((query: Query) => Promise<QueryResult<T>>);
   detailPanel?: ((rowData: T) => React.ReactNode) | (DetailPanel | ((rowData: T) => DetailPanel))[];
@@ -71,7 +72,7 @@ export interface Action<T = any> {
   icon: string | (() => React.ReactElement<any>);
   isFreeAction?: boolean;
   tooltip?: string;
-  onClick: (event: any, data: T) => void;
+  onClick: (event: React.MouseEvent, data: T) => void;
   iconProps?: IconProps;
   hidden?: boolean;
 }
@@ -121,7 +122,7 @@ export interface Column<T = any> {
   sorting?: boolean;
   title?: string | React.ReactElement<any>;
   type?: ('string' | 'boolean' | 'numeric' | 'date' | 'datetime' | 'time' | 'currency');
-  align?: TableProps["align"];
+  align?: TableCellProps["align"];
 }
 
 export interface Components {

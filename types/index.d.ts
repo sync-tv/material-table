@@ -29,7 +29,7 @@ export interface MaterialTableProps<T = any> {
   onChangeRowsPerPage?: (pageSize: number) => void;
   onChangePage?: (page: number) => void;
   onOrderChange?: (orderBy: number, orderDirection: ("asc" | "desc")) => void;
-  onRowClick?: (event?: React.MouseEvent, rowData?: T, toggleDetailPanel?: (panelIndex?: number) => void) => void;
+  onRowClick?: (event?: React.MouseEvent<HTMLElement>, rowData?: T, toggleDetailPanel?: (panelIndex?: number) => void) => void;
   onRowSelected?: (rowData: T) => void;
   onSelectionChange?: (data: T[], rowData?: T) => void;
   onTreeExpandChange?: (data: T, isExpanded: boolean) => void;
@@ -72,7 +72,7 @@ export interface Action<T = any> {
   icon: string | (() => React.ReactElement<any>);
   isFreeAction?: boolean;
   tooltip?: string;
-  onClick: (event: React.MouseEvent, data: T) => void;
+  onClick: (event: React.MouseEvent<HTMLElement>, data: T) => void;
   iconProps?: IconProps;
   hidden?: boolean;
 }
